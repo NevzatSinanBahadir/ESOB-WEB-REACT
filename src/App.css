@@ -205,10 +205,7 @@
   width: 100%!important;
 }
 
-.cardd:hover{
-  box-shadow: 1px 1px 2px 2px #c4c7cf;
-  opacity: 0.8; 
-}
+
 
 .cardduyuru:hover{
   box-shadow: 1px 1px 2px 2px #c4c7cf;
