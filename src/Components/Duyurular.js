@@ -65,7 +65,7 @@ const Duyurular = () => {
 
               <div className='col-lg-3'>
                 <div class="card duyurular">
-                  <NavLink to={`/DuyuruDetay/${doc.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                 
                     <div class="card-body">
                       <h5 style={{ fontSize: '17px', fontWeight: 'bold' }} class="card-title">27-06-2022</h5>
                       <br />
@@ -73,7 +73,7 @@ const Duyurular = () => {
                       <br />
                       <NavLink to={`/DuyuruDetay/${doc.id}`}><button className='btnn' role={'button'}>Devamını Oku</button></NavLink>
                     </div>
-                  </NavLink>
+                 
                 </div>
                 <div className='row'>
                   <br />
