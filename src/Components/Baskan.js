@@ -19,7 +19,7 @@ const Baskan = () => {
       <div className='container'>
         <div className='row'>
             <div className='col-lg-9'>
-            <h1 className='buyukbaslık'>Başkan AHMET TURAL</h1>
+            <h1 className='buyukbaslık'>Başkan AHMET TURAL </h1>
             </div>
             <div className='col-lg-3 d-flex justify-content-end'>
             <NavLink to='/'>
