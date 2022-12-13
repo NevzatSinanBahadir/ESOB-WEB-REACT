@@ -86,14 +86,14 @@ const Slider3 = () => {
 
 
                 <Card className='cardduyuru' style={{ width: '18rem' }}>
-                  <NavLink to={`/DuyuruDetay/${doc.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                 
 
                     <Card.Body >
                       <Card.Text className='cc'>{doc.duyurubaslık}</Card.Text>
                       <hr />
                       <NavLink to={`/DuyuruDetay/${doc.id}`}><button className='btnn' role={'button'}>Devamını Oku</button></NavLink>
                     </Card.Body>
-                  </NavLink>
+                 
                 </Card>
 
 

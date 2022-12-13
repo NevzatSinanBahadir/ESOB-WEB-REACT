@@ -118,7 +118,7 @@ useEffect(() => {
           <h3 className='baslık'>Duyurular</h3>
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6 col d-flex justify-content-end'>
-        <NavLink to='/Haberler'><button className='btnnn' role={'button'}>Tümünü Gör</button></NavLink>
+        <NavLink to='/Duyurular'><button className='btnnn' role={'button'}>Tümünü Gör</button></NavLink>
         </div>
       </div>
       <hr/>
