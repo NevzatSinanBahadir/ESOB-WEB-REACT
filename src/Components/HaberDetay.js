@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import AracCubugu from './AracCubugu'
 import { FaHome } from 'react-icons/fa'
 import AltBaslık from './AltBaslık'
+import { NavLink } from 'react-router-dom'
 import parse from 'html-react-parser';  //Ck editör ekrana özelliklerini bastırma. npm i html-react-parser
 import { db, storage } from '../firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, getDoc } from "firebase/firestore";
@@ -58,10 +59,10 @@ const HaberDetay = () => {
               <h1>Haberler</h1>
             </div>
             <div className='col-lg-3 d-flex justify-content-end'>
-              <a href='/'>
-                <FaHome style={{ color: '#182446' }} /></a>&nbsp;
+              <NavLink to='/'>
+                <FaHome style={{ color: '#182446' }} /></NavLink>&nbsp;
               <p>/</p> &nbsp;
-              <a className='baslik' href='Haberler'> Haberler</a>
+              <NavLink className='baslik' href='Haberler'> Haberler</NavLink>
             </div>
           </div>
         </div>

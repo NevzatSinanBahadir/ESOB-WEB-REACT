@@ -7,7 +7,6 @@ import {Routes,Route, BrowserRouter} from "react-router-dom";
 import Haberler from './Components/Haberler';
 import Duyurular from './Components/Duyurular';
 import Destekler from './Components/Destekler';
-import Kurumsal from './Components/Kurumsal';
 import Iletisim from './Components/Iletisim';
 import Hakkımızda from './Components/Hakkımızda';
 import Genelgeler from './Components/Genelgeler';
@@ -42,7 +41,6 @@ function App() {
  <BrowserRouter>
  <Routes>
         <Route path="/" element={<Anasayfa/>}/>
-        <Route path="/Kurumsal" element={< Kurumsal/>}/>
         <Route path="/Hakkımızda" element={<Hakkımızda />}/>
         <Route path="/Genelgeler" element={<Genelgeler />}/>
         <Route path="/Odalar" element={<Odalar />}/>

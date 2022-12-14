@@ -42,10 +42,10 @@ const TümGenelgeler = () => {
               <h1 className='buyukbaslık'>Genelgeler</h1>
             </div>
             <div className='col-lg-3 d-flex justify-content-end'>
-              <a href='/'>
-                <FaHome style={{ color: '#182446' }} /></a>&nbsp;
+              <NavLink to='/'>
+                <FaHome style={{ color: '#182446' }} /></NavLink>&nbsp;
               <p>/</p> &nbsp;
-              <a className='baslik' href='Genelgeler'> Genelgeler</a>
+              <NavLink className='baslik' to='Genelgeler'> Genelgeler</NavLink>
             </div>
           </div>
         </div>
