@@ -64,15 +64,17 @@ const DestekDetay = () => {
       </div>
       <br /><br />
 
-      <div className='container haberrr'>
+      <div className='container'>
+        <div className='haberrr'>
+        
         <div className='row'>
           <div className='col-lg-12 p-3'>
             <h4 className='baslık'>{baslik}</h4>
           </div>
         </div>
         <div className='row'>
-          <div className='col-lg-3'>
-            <img src={url} alt='' className='img-fluid' style={{ height: '200px' }} ></img>
+          <div className='col-lg-3 p-4'>
+            <img src={url} alt=''  className='img-fluid haberdetayfoto' ></img>
 
           </div>
 
@@ -82,7 +84,7 @@ const DestekDetay = () => {
           </div>
         </div>
       </div>
-
+      </div>
 
 
       <br /><br /><br />

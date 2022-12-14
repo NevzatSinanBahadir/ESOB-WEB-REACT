@@ -1,24 +1,63 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { FiHome } from 'react-icons/fi'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import Sidebar from './Sidebar'
 import { useNavigate } from 'react-router-dom' //localStorage
+import { db, storage } from '../firebase'
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+
+
 
 
 const AdminGenelgePdf = () => {
 
+  const [genelgebaslık, setGenelgebaslık] = useState("");
+  const [genelgeicerik, setGenelgeicerik] = useState("");
+
+  const [postLists, setPostList] = useState([]);
+
   // -------------------------localStorage - Session START---------------------------------
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
- useEffect(() => {
-   if (!!!sessionStorage.getItem("isAuthenticated")) {
-     navigate('/Admin')
-   }
- }, [navigate])
+  useEffect(() => {
+    if (!!!sessionStorage.getItem("isAuthenticated")) {
+      navigate('/Admin')
+    }
+  }, [navigate])
 
-// -------------------------localStorage - Session END---------------------------------
+  // -------------------------localStorage - Session END---------------------------------
 
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, `genelgeler/sMCE4U8jwZXatGteSEZT/genelgepdf`), (snapshot) =>
+        setPostList(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
+
+  async function genelgekaydet() {
+
+    const docRef = await addDoc(
+      collection(db, `genelgeler/sMCE4U8jwZXatGteSEZT/genelgepdf`),
+      {
+        genelgebaslık: genelgebaslık,
+        genelgeicerik: genelgeicerik
+      }
+    );
+    await updateDoc(docRef, {
+      id: docRef.id,
+    });
+    setGenelgebaslık("");
+    setGenelgeicerik("");
+
+  }
+
+  const deletePost = async (id) => {
+    const postDoc = doc(db, "genelgeler/sMCE4U8jwZXatGteSEZT/genelgepdf", id)
+    await deleteDoc(postDoc)
+  }
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
       <Sidebar>
@@ -55,15 +94,18 @@ const AdminGenelgePdf = () => {
                   <h3>Genelgeler</h3><br /><br />
 
                   <label style={{ fontSize: '20px' }}>Genelge PDF Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Genelge PDF Başlığı giriniz." /> <br />
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Genelge PDF Başlığı giriniz." onChange={(event) => { setGenelgebaslık(event.target.value) }} /> <br />
 
                   <label style={{ fontSize: '20px' }}>Genelge PDF Link</label> <br />
                   <input id="img" type="file" class="form-control" placeholder=""></input><br />
 
+                  <label style={{ fontSize: '20px' }} id="content">Genelge PDF Link</label> <br />
+                  <input type="text" onChange={(event) => { setGenelgeicerik(event.target.value) }} placeholder="Genelge pdf Link Giriniz."></input><br />
+
 
                   <br />
                   <div className='d-flex justify-content-end'>
-                    <button className='btngiris' role={'button'}>Ekle</button>
+                    <button className='btngiris' onClick={genelgekaydet}>Ekle</button>
                   </div>
 
                 </div>
@@ -100,41 +142,23 @@ const AdminGenelgePdf = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
 
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
+                    {postLists &&
+                          postLists.length > 0 &&
+                          postLists.map((doc) => (
 
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
+                            <tr key={doc.id}>
 
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
+                              <td>{doc.genelgebaslık}</td>
+                              <td>{doc.genelgeicerik}</td>
+                            
 
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
+                              <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /></td>
+                            </tr>
 
-                      <tr>
-                        <th scope="row">22/25 SAYILI Genelge</th>
-                        <td>https://firebasestorage.googleapis.com/v0/b/isparta-esob.appspot.com/o/genelgele</td>
-                        <td><RiDeleteBin5Line style={{ color: 'red', fontSize: '25px' }} /></td>
-                      </tr>
+                          ))}
+                      
+                     
 
 
 

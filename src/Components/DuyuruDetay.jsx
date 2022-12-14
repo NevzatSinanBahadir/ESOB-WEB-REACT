@@ -62,29 +62,41 @@ const DuyuruDetay = () => {
       </div>
       <br /><br /><br />
 
-      <div className='container haberrr'>
+      <div className=' container'>
+        <div className='haberrr '>
+          <div className='row'>
 
 
-        <div className='row'>
-          <div className='col-lg-12 d-flex justify-content-center p-3'>
+            <div className='row'>
 
-            <h4 className='baslık' style={{ width: '800px' }}> {baslik}</h4>
-            <br /><br /><br />
+              <div className='col-lg-12 d-flex justify-content-center p-3'>
+
+                <h4 className='hbrbaslık'>{baslik}</h4>
+
+                <br /><br />
+
+              </div>
+
+              <div className='col-lg-9 d-flex justify-content-end '>
+                <p>17-11-2022</p>
+              </div>
+
+          
+
+              <div className='col-lg-12 d-flex justify-content-center '>
+                <br /><br />
+                <p className='yazı' style={{ width: '700px', margin: '30px' }} >
+                  {parse(icerik)}
+                </p>
+
+
+              </div>
+            </div>
           </div>
 
-          <div className='col-lg-9 px-2 d-flex justify-content-end'>
-            <p>20-02-2022</p>
-            <br /><br /><br />
-          </div>
 
-          <div className='col-lg-12 d-flex justify-content-center'>
-
-            <p className='yazı' style={{ width: '800px' }}>  {parse(icerik)}  </p>
-
-          </div>
 
         </div>
-
 
       </div>
 

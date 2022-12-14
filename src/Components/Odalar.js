@@ -69,7 +69,7 @@ const Odalar = () => {
 
 
                   <div key={doc.id} className='col-xl-3 col-lg-6 col-md-6' style={{ backgroundColor: 'white', padding: '20px' }}>
-                    <div className='row'>
+                    <div className='row justify-content-center'>
 
 
                       <div class="card odalar" style={{ width: '18rem', borderRadius: '25PX' }} >

@@ -54,20 +54,22 @@ const Haberler = () => {
          </div>
          <br /><br />
 
-         <div className='container'>
+         <div className='container p-4'>
 
 
             {haberler &&
                haberler.length > 0 &&
                haberler.map((doc) => (
 
-                  <div className='row haberresim'>
-                     <div className='col-lg-3'>
+                  <div className='row'>
+                     <div className='col-lg-3 p-2'>
 
                         <NavLink to={`/HaberDetay/${doc.id}`}> <img src={doc.haberurl} alt='' className='img-fluid' style={{ height: '240px', borderRadius: '20px' }}></img></NavLink>
                      </div>
+                     
 
-                     <div className='col-lg-9'>
+                     <div className='col-lg-9 p-2'>
+                    
                         <NavLink to={`/HaberDetay/${doc.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                            <h4 className='baslık'>{doc.haberbaslık}</h4><br />
                            <p className='haber'> {parse(doc.habericerik)}</p>

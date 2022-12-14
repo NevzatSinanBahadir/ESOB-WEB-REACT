@@ -77,7 +77,7 @@
 
 .haber{
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; 
   overflow:hidden;
 }
@@ -108,12 +108,11 @@
 
 .satırboyutu{
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical; 
   overflow:hidden;
-  overflow-x: hidden;
-  overflow-y: hidden; 
-  min-height: 140px;
+  min-height: 110px;
+  
   
 
 }
@@ -395,17 +394,34 @@ color:#292929;
 
 }
 
+
+.hbrbaslık{
+  color:#182446;
+  font-weight: 700;
+  font-family:'Times New Roman', Times, serif;
+  text-align: center;
+
+}
+
 .active{
   color:rgb(23, 180, 227)!important;
 }
 
 .haberrr{
-  border-left: 1px solid #182446;
-  border-right: 1px solid #182446;
- border-bottom: 1px solid #182446 ;
- border-top: 1px solid #182446;
+  border: 1px solid #182446 ;
   border-radius: 40px;
-  min-height: 300px ;
+  margin: 5px;
+  padding-left: 25px;
+  padding-right: 5px;
+
+  
+}
+
+.duyuruuu{
+  border: 1px solid #182446 ;
+  border-radius: 40px;
+  margin: 5px;
+  padding-left: 25px;
 }
 
 .yazıhakkımızda{
@@ -518,6 +534,8 @@ color:#292929;
 
 main{
   width: 100%;
+
+
 }
 
 
@@ -587,3 +605,4 @@ main{
   
   box-shadow: 2px 2px 4px 4px rgb(214, 214, 205) ;
 }
+

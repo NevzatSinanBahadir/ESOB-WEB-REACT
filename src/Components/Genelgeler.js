@@ -1,10 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AracCubugu from './AracCubugu'
 import { FaHome } from 'react-icons/fa'
 import AltBaslık from './AltBaslık'
 import { NavLink } from 'react-router-dom'
+import { db, storage } from '../firebase';
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+
+
+
 
 const Genelgeler = () => {
+
+  const [genelgeler, setGenelgeler] = useState([]);
+
+
+
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, `genelgeler`), (snapshot) =>
+        setGenelgeler(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
+
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -31,22 +51,34 @@ const Genelgeler = () => {
 
       <br /><br />
       <div className='container'>
-        <div class="row">
-          <div class="col-3 col-md-4 col-sm-6 col-12 col-lg-3">
-            <div class="card genelge">
-              <NavLink to='/TümGenelgeler' style={{ textDecoration: 'none' }}>
-                <div class="card-body">
-                  <h5 class="baslık">2022 Genelgeleri</h5>
-                  <br />
-                  <NavLink to="/TümGenelgeler"><button className='btnn' role={'button'}>Genelgeleri Gör</button></NavLink>
+      <div class="row px-2">
+
+        {genelgeler &&
+          genelgeler.length > 0 &&
+          genelgeler.map((doc) => (
+            
+              <div class="col-3 col-md-4 col-sm-6 col-12 col-lg-3">
+                <div class="row px-2">
+                <div class="card genelge">
+                  <NavLink to='/TümGenelgeler' style={{ textDecoration: 'none' }}>
+                    <div class="card-body">
+
+                      <h5 class="baslık">{doc.genelgebaslık}</h5>
+                      <br />
+                      <NavLink to="/TümGenelgeler"><button className='btnn' role={'button'}>Genelgeleri Gör</button></NavLink>
 
 
+                    </div>
+                  </NavLink>
                 </div>
-              </NavLink>
+              </div>
+              <br/>
             </div>
-          </div>
-        </div>
 
+
+          ))}
+
+      </div>
       </div>
       <br /> <br />
       <AltBaslık />

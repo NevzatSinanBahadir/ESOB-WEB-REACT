@@ -37,7 +37,7 @@ const Slider3 = () => {
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -86,14 +86,14 @@ const Slider3 = () => {
 
 
                 <Card className='cardduyuru' style={{ width: '18rem' }}>
-                 
 
-                    <Card.Body >
-                      <Card.Text className='cc'>{doc.duyurubaslık}</Card.Text>
-                      <hr />
-                      <NavLink to={`/DuyuruDetay/${doc.id}`}><button className='btnn' role={'button'}>Devamını Oku</button></NavLink>
-                    </Card.Body>
-                 
+
+                  <Card.Body >
+                    <Card.Text className='cc'>{doc.duyurubaslık}</Card.Text>
+                    <hr />
+                    <NavLink to={`/DuyuruDetay/${doc.id}`}><button className='btnn' role={'button'}>Devamını Oku</button></NavLink>
+                  </Card.Body>
+
                 </Card>
 
 

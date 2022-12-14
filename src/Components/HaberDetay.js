@@ -4,7 +4,7 @@ import { FaHome } from 'react-icons/fa'
 import AltBaslık from './AltBaslık'
 import parse from 'html-react-parser';  //Ck editör ekrana özelliklerini bastırma. npm i html-react-parser
 import { db, storage } from '../firebase';
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc,getDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, getDoc } from "firebase/firestore";
 import { useParams } from 'react-router-dom'
 
 
@@ -12,10 +12,10 @@ import { useParams } from 'react-router-dom'
 const HaberDetay = () => {
 
 
-  
+
   const [icerik, setIcerik] = useState("");
   const [baslik, setBaslik] = useState("");
-  const [url,setUrl] = useState("");
+  const [url, setUrl] = useState("");
   const [haberler, setHaberler] = useState([]);
   const { id } = useParams();
 
@@ -68,40 +68,42 @@ const HaberDetay = () => {
       </div>
       <br /><br /><br />
 
-      <div className='container haberrr'>
-        <div className='row'>
-
-         
-              <div className='row'>
-
-                <div className='col-lg-12 d-flex justify-content-center p-3'>
-
-                  <h4 className='baslık'>{baslik}</h4>
-
-                  <br /><br />
-
-                </div>
-
-                <div className='col-lg-9 d-flex justify-content-end '>
-                  <p>17-11-2022</p>
-                </div>
-
-                <div className='col-lg-12 d-flex justify-content-center'>
-                  <img src={url} alt='' className='img-fluid haberdetayfoto'></img>
+      <div className=' container'>
+        <div className='haberrr '>
+          <div className='row'>
 
 
-                </div>
+            <div className='row'>
 
-                <div className='col-lg-12 d-flex justify-content-center '>
-                  <br /><br />
-                  <p className='yazı' style={{ width: '700px', margin: '30px' }} >
-                     {parse(icerik)}
-                  </p>
+              <div className='col-lg-12 d-flex justify-content-center p-3'>
 
+                <h4 className='hbrbaslık'>{baslik}</h4>
 
-                </div>
+                <br /><br />
+
               </div>
-           
+
+              <div className='col-lg-9 d-flex justify-content-end '>
+                <p>17-11-2022</p>
+              </div>
+
+              <div className='col-lg-12 d-flex justify-content-center'>
+                <img src={url} alt='' className='img-fluid haberdetayfoto'></img>
+
+
+              </div>
+
+              <div className='col-lg-12 d-flex justify-content-center '>
+                <br /><br />
+                <p className='yazı' style={{ width: '700px', margin: '30px' }} >
+                  {parse(icerik)}
+                </p>
+
+
+              </div>
+            </div>
+          </div>
+
 
 
         </div>

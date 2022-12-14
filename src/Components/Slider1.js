@@ -36,7 +36,7 @@ const Slider1 = () => {
   const settings = {
 
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
