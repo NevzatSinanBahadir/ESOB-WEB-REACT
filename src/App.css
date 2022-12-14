@@ -79,11 +79,11 @@
 }
 
 .haber{
-  display: -webkit-box;
+  display:-webkit-inline-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; 
+  -webkit-box-orient:vertical; 
   overflow:hidden;
-  max-height: 88px;
+ 
  
 }
 .a{
