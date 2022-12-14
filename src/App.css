@@ -1,3 +1,6 @@
+
+
+
 .YazılıLogo{
   width: auto;
   height: 75px;
@@ -44,7 +47,7 @@
   margin: 0px!important;
   background-color: #182446;
   opacity: 0.9;
-  width: 100%;
+  
   color: white;
 }
 .arkaa{
@@ -608,3 +611,10 @@ main{
   box-shadow: 2px 2px 4px 4px rgb(214, 214, 205) ;
 }
 
+
+.duzen{
+  margin-right: 0!important;
+  min-width: 100%!important;
+  padding-right: 0px!important;
+ 
+}

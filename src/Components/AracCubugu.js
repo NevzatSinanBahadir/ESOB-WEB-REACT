@@ -24,7 +24,7 @@ const AracCubugu = () => {
     
     <div>
        
-      <div className='row'>
+      
           <div className='col-lg-12'>
 
       <div
@@ -94,7 +94,7 @@ const AracCubugu = () => {
 
       </div>
  </div>
-      </div>
+    
 
 
     

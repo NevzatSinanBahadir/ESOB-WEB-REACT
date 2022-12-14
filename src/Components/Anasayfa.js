@@ -35,16 +35,18 @@ useEffect(() => {
 
   return (
     <div>
+      
         <AracCubugu/>
         
-       
-      <div className='row d-flex justify-content-space justify-content-between'>
-      <div className='col-lg-9 col-md-9 col-12'>
+     
+      <div className='row'>
+      <div className='col-lg-9 col-md-9 col-12 '>
       
      <Slider2/>
         </div>
+      
        
-        <div className='col-lg-3 col-md-3 col-sm-12 col'>
+        <div className='col-lg-3 col-md-3 col-sm-12 m-0' >
           <NavLink to='/Baskan'>
             <img src={Baskan} alt='' className='img-fluid w-100'></img>
             </NavLink>
@@ -56,7 +58,7 @@ useEffect(() => {
                 </div>
                 
                 <br/>
-                <div className='col-md-6 col-sm-6 col'>
+                <div className='col-md-6 col-sm-6 col d-flex justify-content-end'>
               <div className='row'>
                 
                     <div className='col-md-2 col-sm-2 col'>
