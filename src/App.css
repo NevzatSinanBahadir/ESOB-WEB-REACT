@@ -80,6 +80,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; 
   overflow:hidden;
+  min-height: 10px!important;
 }
 .a{
   display: -webkit-box;

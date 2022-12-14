@@ -81,7 +81,7 @@ const DuyuruDetay = () => {
                 <p>17-11-2022</p>
               </div>
 
-          
+            
 
               <div className='col-lg-12 d-flex justify-content-center '>
                 <br /><br />
@@ -100,6 +100,7 @@ const DuyuruDetay = () => {
 
       </div>
 
+      
       <br /><br /><br />
       <AltBaslık />
     </div>
