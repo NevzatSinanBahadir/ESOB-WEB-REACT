@@ -83,7 +83,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; 
   overflow:hidden;
-  max-height: 85px;
+  max-height: 88px;
  
 }
 .a{
@@ -614,7 +614,6 @@ main{
 
 .duzen{
   margin-right: 0!important;
-  min-width: 100%!important;
-  padding-right: 0px!important;
+  
  
 }
