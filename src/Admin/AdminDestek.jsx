@@ -79,7 +79,7 @@ const AdminDestek = () => {
   {/*----------------------------Slayt Silme Fonksiyonu END------------------------------------------*/ }
 
   return (
-    <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
+    <div style={{ backgroundColor: 'rgb(242,247,251)', height:'100%' }}>
      
         <br /><br />
         <div style={{ margin: '50px' }}>

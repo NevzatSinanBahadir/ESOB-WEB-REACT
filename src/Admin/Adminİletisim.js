@@ -91,7 +91,7 @@ useEffect(() => {
 
 
   return (
-    <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
+    <div style={{ backgroundColor: 'rgb(242,247,251)', height:'100%' }}>
 
      
         <br /><br />
