@@ -13,7 +13,7 @@ const AdminOda = () => {
   const [odaismi, setOdaismi] = useState("");
   const [odabaskanı, setOdabaskanı] = useState("");
   const [odagenelsekreter, setOdagenelsekreter] = useState("");
-  const [odatel, setodatel] = useState("");
+  const [odatel, setOdatel] = useState("");
   const [odatip, setOdatip] = useState("");
   const [postLists, setPostList] = useState([]);
 
@@ -23,7 +23,7 @@ const AdminOda = () => {
 
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
@@ -60,7 +60,9 @@ const AdminOda = () => {
     setOdaismi("");
     setOdabaskanı("");
     setOdagenelsekreter("");
-    setodatel("");
+    setOdatel("");
+    setOdaurl("");
+    setOdatip("");
   }
 
 
@@ -75,7 +77,7 @@ const AdminOda = () => {
 
 
 
-  function merkeoda() {
+  function merkezoda() {
     setOdatip("Merkez")
   }
 
@@ -90,7 +92,7 @@ const AdminOda = () => {
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-      <Sidebar>
+    
         <br /><br />
 
         <div style={{ margin: '50px' }}>
@@ -127,19 +129,19 @@ const AdminOda = () => {
 
 
                   <label style={{ fontSize: '20px' }}>Oda İsmi</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Oda ismini giriniz." onChange={(event) => { setOdaismi(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={odaismi} placeholder="Oda ismini giriniz." onChange={(event) => { setOdaismi(event.target.value) }}></input><br />
                   <label style={{ fontSize: '20px' }}>Oda Logo</label><br /><br />
                   <input id="img" type="file" class="form-control" placeholder=""></input><br />
                   <label style={{ fontSize: '20px' }} id="content">Oda Görsel</label> <br /><br />
-                  <input type="text" onChange={(event) => { setOdaurl(event.target.value) }} placeholder="Oda görsel url giriniz."></input><br /><br />
+                  <input type="text"  class="form-control" value={odaurl} onChange={(event) => { setOdaurl(event.target.value) }} placeholder="Oda görsel url giriniz."></input><br /><br />
                   <label style={{ fontSize: '20px' }}>Oda Başkanı</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Oda başkanını giriniz." onChange={(event) => { setOdabaskanı(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={odabaskanı} placeholder="Oda başkanını giriniz." onChange={(event) => { setOdabaskanı(event.target.value) }}></input><br />
                   <label style={{ fontSize: '20px' }}>Genel Sekreter</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Genel Sekreterini giriniz." onChange={(event) => { setOdagenelsekreter(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={odagenelsekreter} placeholder="Genel Sekreterini giriniz." onChange={(event) => { setOdagenelsekreter(event.target.value) }}></input><br />
                   <label style={{ fontSize: '20px' }}>Oda Telefon Numarası</label><br /><br />
-                  <input type="number" class="form-control" placeholder="Oda telefon numarasını giriniz." onChange={(event) => { setodatel(event.target.value) }}></input><br />
+                  <input type="number" class="form-control" value={odatel} placeholder="Oda telefon numarasını giriniz." onChange={(event) => { setOdatel(event.target.value) }}></input><br />
                   <label style={{ fontSize: '20px' }}>Oda Kategori</label><br /><br />
-                  <input type="radio" value="Merkez Oda" name="gender" onChange={merkeoda} /> Merkez Oda &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="radio" value="Merkez Oda" name="gender" onChange={merkezoda} /> Merkez Oda &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="radio" value="İlçe Oda" name="gender" onChange={ilceoda} /> İlçe Oda <br /><br />
 
 
@@ -211,7 +213,7 @@ const AdminOda = () => {
 
 
 
-      </Sidebar>
+    
     </div>
 
 

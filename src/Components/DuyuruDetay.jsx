@@ -5,8 +5,9 @@ import AltBaslık from './AltBaslık'
 import { NavLink } from 'react-router-dom'
 import parse from 'html-react-parser';  //Ck editör ekrana özelliklerini bastırma. npm i html-react-parser
 import { db, storage } from '../firebase';
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, getDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, getDoc, Timestamp } from "firebase/firestore";
 import { useParams } from 'react-router-dom'
+
 
 
 
@@ -16,17 +17,22 @@ const DuyuruDetay = () => {
   const [duyurular, setDuyurular] = useState([]);
   const [icerik, setIcerik] = useState("");
   const [baslik, setBaslik] = useState("");
+ 
+  
   const { id } = useParams();
 
 
-
+  const time = Timestamp.fromDate(new Date());
 
   async function vericek() {
     const veriyolu = doc(db, "duyurular", id);
     const docSnap = await getDoc(veriyolu);
+   
     setDuyurular(docSnap.data());
     setIcerik(docSnap.data()['duyuruicerik'])
     setBaslik(docSnap.data()['duyurubaslık'])
+   
+    
   }
 
   useEffect(
@@ -79,7 +85,7 @@ const DuyuruDetay = () => {
               </div>
 
               <div className='col-lg-9 d-flex justify-content-end '>
-                <p>17-11-2022</p>
+                <p>{time.toDate().toLocaleDateString("tr")}</p>
               </div>
 
             

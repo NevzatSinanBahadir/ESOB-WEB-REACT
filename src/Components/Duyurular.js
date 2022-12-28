@@ -4,7 +4,7 @@ import { FaHome } from 'react-icons/fa'
 import AltBaslık from './AltBaslık'
 import { NavLink } from 'react-router-dom'
 import { db, storage } from '../firebase';
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, Timestamp } from "firebase/firestore";
 
 
 
@@ -67,7 +67,7 @@ const Duyurular = () => {
                 <div class="card duyurular">
                   <NavLink to={`/DuyuruDetay/${doc.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                     <div class="card-body">
-                      <h5 style={{ fontSize: '17px', fontWeight: 'bold' }} class="card-title">27-06-2022</h5>
+                      <h5 style={{ fontSize: '17px', fontWeight: 'bold' }} class="card-title">{doc.time.toDate().toLocaleDateString("tr")}</h5>
                       <br />
                       <h5 style={{ fontSize: '15px', height: '55px' }}>{doc.duyurubaslık}</h5>
                       <br />

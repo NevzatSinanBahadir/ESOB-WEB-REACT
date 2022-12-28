@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import { FiHome } from 'react-icons/fi'
 import { CiUser } from 'react-icons/ci'
 import { FaRegNewspaper } from 'react-icons/fa'
@@ -6,6 +6,10 @@ import { FaBullhorn } from 'react-icons/fa'
 import Sidebar from './Sidebar'
 import HeaderBar from './HeaderBar'
 import { useNavigate } from 'react-router-dom' //localStorage
+import { NavLink } from 'react-router-dom'
+import { db, storage } from '../firebase';
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+
 
 
 
@@ -15,18 +19,21 @@ const AdminAnasayfa = () => {
 
   const navigate = useNavigate();
 
+
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
-  // -------------------------localStorage - Session END---------------------------------
 
+
+
+  // -------------------------localStorage - Session END---------------------------------
 
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }} >
-      <Sidebar >
+     
 
         <br /><br />
 
@@ -135,7 +142,7 @@ const AdminAnasayfa = () => {
 
           </div>
         </div>
-      </Sidebar>
+     
 
 
 

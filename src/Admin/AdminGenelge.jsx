@@ -25,7 +25,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/Admin')
+    navigate('/giris')
   }
 }, [navigate])
 
@@ -70,7 +70,7 @@ useEffect(() => {
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-      <Sidebar>
+  
 
 
         <br /><br />
@@ -104,7 +104,7 @@ useEffect(() => {
 
 
                   <label style={{ fontSize: '20px' }}>Genelge Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Genelge Başlığı giriniz." onChange={(event) => { setGenelgebaslık(event.target.value) }} /> <br />
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Genelge Başlığı giriniz." value={genelgebaslık} onChange={(event) => { setGenelgebaslık(event.target.value) }} /> <br />
 
 
                   <label style={{ fontSize: '20px' }}>Genelge İçerik</label> <br />
@@ -113,14 +113,17 @@ useEffect(() => {
                     <div className='col-lg-12 col-md-12 col-sm-12 col'>
                       <CKEditor
                         editor={ClassicEditor}
+                        value={genelgeicerik}
                         data=""
                         onReady={editor => {
                           console.log('Editor is ready to use!', editor);
                         }}
+                        
                         onChange={(event, editor) => {
                           const data = editor.getData();
 
                           setGenelgeicerik(data)
+                         
 
                         }}
                         onBlur={(event, editor) => {
@@ -214,7 +217,7 @@ useEffect(() => {
           </div>
         </div>
 
-      </Sidebar>
+    
 
 
 

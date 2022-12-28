@@ -54,6 +54,7 @@ const TümGenelgeler = () => {
 
       <br /><br />
 
+      
 
 
       <div className='container'>

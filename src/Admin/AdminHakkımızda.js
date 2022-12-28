@@ -26,7 +26,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/Admin')
+    navigate('/giris')
   }
 }, [navigate])
 
@@ -79,7 +79,7 @@ useEffect(() => {
 
         <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-            <Sidebar>
+            
                 <br /><br />
                 <div style={{ margin: '50px' }}>
 
@@ -115,6 +115,7 @@ useEffect(() => {
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data=""
+                                            
                                             onReady={editor => {
                                                 console.log('Editor is ready to use!', editor);
                                             }}
@@ -131,6 +132,7 @@ useEffect(() => {
                                             onFocus={(event, editor) => {
                                                 console.log('Focus.', editor);
                                             }}
+                                            value={icerik}
                                         />
                                     </div>
                                 </div>
@@ -180,7 +182,7 @@ useEffect(() => {
                 </div>
 
 
-            </Sidebar>
+            
 
 
 

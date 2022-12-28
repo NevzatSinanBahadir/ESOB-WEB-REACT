@@ -50,7 +50,7 @@ const AdminSlayt = () => {
 
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
@@ -80,6 +80,8 @@ const AdminSlayt = () => {
         slayturl: slayturl
       }
     );
+  
+    
     await updateDoc(docRef, {
       id: docRef.id,
     });
@@ -99,11 +101,13 @@ const AdminSlayt = () => {
 
   const deletePost = async (id) => {
     const postDoc = doc(db, "Slayt", id)
+    console.log(id);
     await deleteDoc(postDoc)
   }
 
   {/*----------------------------Slayt Silme Fonksiyonu START------------------------------------------*/ }
 
+  
 
 
   // const handleSubmit = (e) => {
@@ -210,9 +214,11 @@ const AdminSlayt = () => {
 
   return (
 
+    
+
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-      <Sidebar>
+      
         <br /><br />
 
         <div style={{ margin: '50px' }}>
@@ -268,7 +274,7 @@ const AdminSlayt = () => {
 
 
                 <label style={{ fontSize: '20px' }} id="content">Slayt İçerik</label> <br /><br />
-                <input type="text" onChange={(event) => { setSlayticerik(event.target.value) }} placeholder="Slayt görsel url giriniz."></input><br />
+                <input type="text"  class="form-control" value={slayticerik} onChange={(event) => { setSlayticerik(event.target.value) }} placeholder="Slayt görsel url giriniz."></input><br />
 
                 <p>Kalan Karekter sayısı : 250</p>
                 <div className='d-flex justify-content-end'>
@@ -307,7 +313,7 @@ const AdminSlayt = () => {
 
           </div>
 
-
+ 
 
           <div className='row'>
             <div className='col-lg-12'>
@@ -352,6 +358,7 @@ const AdminSlayt = () => {
                             <td>{doc.slaytbaslık}</td>
                             <td> {doc.slayticerik}</td>
                             <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /></td>
+                            
                           </tr>
 
                         ))}
@@ -381,7 +388,7 @@ const AdminSlayt = () => {
 
         </div>
 
-      </Sidebar>
+     
     </div>
 
 

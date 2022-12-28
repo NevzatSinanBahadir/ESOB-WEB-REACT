@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import NavLink from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
+import { db } from "../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 
 
 
@@ -9,20 +11,53 @@ const GirisYap = () => {
 
   //  ------------------------Giriş Ekranı localStorage - Session START-------------------- 
   
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
-  const navigate = useNavigate();
+  const [admins, setAdmins] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+ 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (user === "esnaflar odası" && pass === "kma") {
-      sessionStorage.setItem("isAuthenticated", true);
-      navigate("/Admin/anasayfa");
-    }
 
-    //  ------------------------localStorage - Session END-------------------- 
-
+  function usernameG(event) {
+    setUsername(event.target.value);
   }
+
+  function passwordG(event) {
+    setPassword(event.target.value);
+  }
+  const navigate = useNavigate();
+  useEffect(
+    () =>
+      onSnapshot(collection(db, `admins`), (snapshot) =>
+        setAdmins(snapshot.docs.map((doc) => doc.data()))
+      ),
+
+    []
+  );
+
+  function girisyap() {
+    
+    for (let i = 0; i < admins.length; i++) {
+      if (username == admins[i].username) {
+        if (password == admins[i].password) {
+          console.log("Giriş Başarılı.");
+          sessionStorage.setItem("isAuthenticated", true);
+          navigate('/admin/anasayfa');
+
+          
+
+          break;
+        } else {
+          console.log("Şifreniz Hatalı!");
+          break;
+        }
+      } else {
+        console.log("Böyle bir kullanıcı bulunamadı!");
+        break;
+      }
+    }
+  }
+
+  
   return (
     <div className='arkaplan'>
       <div className='container'>
@@ -34,20 +69,20 @@ const GirisYap = () => {
               </div>
 
 
-              <form onSubmit={(e) => handleSubmit(e)}>
+              
                 <div class="mb-3">
                   <label style={{ backgroundColor: '#182446', color: 'white', padding: '5px' }}>Kullanıcı Adı</label>
-                  <input type="text" class="form-control" placeholder="Kullanıcı adını giriniz" onChange={(e) => setUser(e.target.value)}></input>
+                  <input type="text" class="form-control" placeholder="Kullanıcı adını giriniz" onChange={usernameG}></input>
                 </div>
 
                 <div class="mb-3">
                   <label style={{ backgroundColor: '#182446', color: 'white', padding: '5px' }}>Şifre</label>
-                  <input type="password" class="form-control" placeholder="Şifrenizi giriniz" onChange={(e) => setPass(e.target.value)}></input>
+                  <input type="password" class="form-control" placeholder="Şifrenizi giriniz" onChange={passwordG}></input>
                 </div>
                 <div class="mb-3 d-flex justify-content-center">
-                  <input className='btngiris' type="submit" value="Giriş Yap"></input>
+                  <button className='btngiris' onClick={girisyap} >Giriş Yap</button>
                 </div>
-              </form>
+              
             </div>
           </div>
 

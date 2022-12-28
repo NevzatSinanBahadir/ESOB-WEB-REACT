@@ -31,15 +31,111 @@ import AdminDestek from './Admin/AdminDestek';
 import AdminGenelge from './Admin/AdminGenelge';
 import AdminGenelgePdf from './Admin/AdminGenelgePdf';
 import Sidebar from './Admin/Sidebar';
+import { useLocation } from 'react-router-dom';
+
+
+
 
 
 
 
 function App() {
+
+    
+    // let path = window.location.pathname;
+    // path = path.split("/")
+    // path = path[path.length -1]
+    // let adminPath = path.split("-").includes("admin")
+ 
+  
+    const location = useLocation();
+    if (location.pathname.startsWith('/admin')) {
+
+    
+    
+    return(
+      <Sidebar>
+      <Routes>
+             <Route path='/admin/anasayfa' element={<AdminAnasayfa/>}/>
+             <Route path='/admin/slaytekle' element={<AdminSlayt/>}/>
+             <Route path='/admin/hakkımızdaekle' element={<AdminHakkımızda/>}/>
+             <Route path='/admin/odaekle' element={<AdminOda/>}/>
+             <Route path='/admin/personelekle' element={<AdminPersonel/>}/>
+             <Route path='/admin/iletisimekle' element={<Adminİletisim/>}/>
+             <Route path='/admin/genelgeekle' element={<AdminGenelge/>}/>
+             <Route path='/admin/haberekle' element={<AdminHaber/>}/>
+             <Route path='/admin/duyuruekle' element={<AdminDuyuru/>}/>
+             <Route path='/admin/destekekle' element={<AdminDestek/>}/>
+             <Route path='/admin/genelgepdfekle' element={<AdminGenelgePdf/>}/>
+            
+             
+     
+     </Routes>
+     </Sidebar>
+     )
+
+    } else {
+      
+    
+    return(
+      <Routes>
+    
+          <Route path="/" element={<Anasayfa/>}/>
+          <Route path="/Hakkımızda" element={<Hakkımızda />}/>
+          <Route path="/Genelgeler" element={<Genelgeler />}/>
+          <Route path="/Odalar" element={<Odalar />}/>
+          <Route path="/Baskan" element={<Baskan />}/>
+          <Route path="/Personeller" element={<Personeller />}/>
+          <Route path="/Haberler" element={<Haberler />}/>
+          <Route path="/Duyurular" element={<Duyurular />}/>
+          <Route path="/Destekler" element={<Destekler />}/>
+          <Route path="/Iletisim" element={<Iletisim />}/>
+          <Route path="/TümGenelgeler" element={<TümGenelgeler />}/>
+          <Route path="/HaberDetay/:id" element={<HaberDetay />}/>
+          <Route path='/DuyuruDetay/:id' element={<DuyuruDetay />}/>
+          <Route path='/DestekDetay/:id' element={<DestekDetay />}/>
+          <Route path='/giris' element={<GirisYap/>}/> 
+           
+         
+    </Routes>
+    )
+    }
+  
   return(
     <div>
- <BrowserRouter>
+
+    
+
+   <App/>
+    
+
+
+
+
+
+
+ {/* {adminPath === true ? 
+ <Sidebar>
  <Routes>
+        <Route path='/admin-anasayfa' element={<AdminAnasayfa/>}/>
+        <Route path='/admin-slaytekle' element={<AdminSlayt/>}/>
+        <Route path='/admin-hakkımızdaekle' element={<AdminHakkımızda/>}/>
+        <Route path='/admin-odaekle' element={<AdminOda/>}/>
+        <Route path='/admin-personelekle' element={<AdminPersonel/>}/>
+        <Route path='/admin-iletisimekle' element={<Adminİletisim/>}/>
+        <Route path='/admin-genelgeekle' element={<AdminGenelge/>}/>
+        <Route path='/admin-haberekle' element={<AdminHaber/>}/>
+        <Route path='/admin-duyuruekle' element={<AdminDuyuru/>}/>
+        <Route path='/admin-destekekle' element={<AdminDestek/>}/>
+        <Route path='/admin-genelgepdfekle' element={<AdminGenelgePdf/>}/>
+       
+        
+
+</Routes>
+</Sidebar> :
+
+<Routes>
+
         <Route path="/" element={<Anasayfa/>}/>
         <Route path="/Hakkımızda" element={<Hakkımızda />}/>
         <Route path="/Genelgeler" element={<Genelgeler />}/>
@@ -54,24 +150,12 @@ function App() {
         <Route path="/HaberDetay/:id" element={<HaberDetay />}/>
         <Route path='/DuyuruDetay/:id' element={<DuyuruDetay />}/>
         <Route path='/DestekDetay/:id' element={<DestekDetay />}/>
-        <Route path='/Admin' element={<GirisYap/>}/>         
-    
-        
+        <Route path='/giris' element={<GirisYap/>}/> 
+         
        
-        <Route path='/Admin/anasayfa' element={<AdminAnasayfa/>}/>
-        <Route path='/Admin/slaytekle' element={<AdminSlayt/>}/>
-        <Route path='/Admin/hakkımızdaekle' element={<AdminHakkımızda/>}/>
-        <Route path='/Admin/odaekle' element={<AdminOda/>}/>
-        <Route path='/Admin/personelekle' element={<AdminPersonel/>}/>
-        <Route path='/Admin/iletisimekle' element={<Adminİletisim/>}/>
-        <Route path='/Admin/genelgeekle' element={<AdminGenelge/>}/>
-        <Route path='/Admin/haberekle' element={<AdminHaber/>}/>
-        <Route path='/Admin/duyuruekle' element={<AdminDuyuru/>}/>
-        <Route path='/Admin/destekekle' element={<AdminDestek/>}/>
-        <Route path='/Admin/genelgepdfekle' element={<AdminGenelgePdf/>}/>
   </Routes>
-  </BrowserRouter>
-        
+} */}
+
     
 </div>
 

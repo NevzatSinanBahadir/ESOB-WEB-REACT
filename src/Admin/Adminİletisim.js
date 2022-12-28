@@ -30,7 +30,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/Admin')
+    navigate('/giris')
   }
 }, [navigate])
 
@@ -93,7 +93,7 @@ useEffect(() => {
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-      <Sidebar>
+     
         <br /><br />
         <div style={{ margin: '50px' }}>
 
@@ -127,22 +127,22 @@ useEffect(() => {
                   <h3>İletişim</h3><br />
 
                   <label style={{ fontSize: '20px' }}>Adres</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Adres giriniz." onChange={(event) => { setAdres(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={adres} placeholder="Adres giriniz." onChange={(event) => { setAdres(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>E-mail</label><br /><br />
-                  <input type="mail" class="form-control" placeholder="Email giriniz." onChange={(event) => { setMail(event.target.value) }}></input><br />
+                  <input type="mail" class="form-control" value={mail} placeholder="Email giriniz." onChange={(event) => { setMail(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>Telefon Numarası</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Telefon numarası giriniz." onChange={(event) => { setTelno(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={telno} placeholder="Telefon numarası giriniz." onChange={(event) => { setTelno(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>Facebook URL</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Facebook url giriniz." onChange={(event) => { setFacebook(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={facebook} placeholder="Facebook url giriniz." onChange={(event) => { setFacebook(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>İnstagram URL</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Instagram url giriniz." onChange={(event) => { setInstagram(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={ınstagram} placeholder="Instagram url giriniz." onChange={(event) => { setInstagram(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>Twitter URL</label><br /><br />
-                  <input type="text" class="form-control" placeholder="Twitter url giriniz." onChange={(event) => { setTwitter(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={twitter} placeholder="Twitter url giriniz." onChange={(event) => { setTwitter(event.target.value) }}></input><br />
 
 
                   <div className='d-flex justify-content-end'>
@@ -211,7 +211,7 @@ useEffect(() => {
         </div>
 
 
-      </Sidebar>
+      
 
 
 

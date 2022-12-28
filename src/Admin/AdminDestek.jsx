@@ -26,7 +26,7 @@ const AdminDestek = () => {
 
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
@@ -80,7 +80,7 @@ const AdminDestek = () => {
 
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
-      <Sidebar>
+     
         <br /><br />
         <div style={{ margin: '50px' }}>
           <div className='page-header-card'>
@@ -116,10 +116,10 @@ const AdminDestek = () => {
                   <input id="img" type="file" class="form-control" placeholder=""></input><br />
 
                   <label style={{ fontSize: '20px' }}>Destekleyen Kurum İsim</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Destekleyen kurumunun ismini giriniz." onChange={(event) => { setDestekisim(event.target.value) }} /> <br />
+                  <input type="text" class="form-control" value={destekisim} id="exampleInputEmail1" placeholder="Destekleyen kurumunun ismini giriniz." onChange={(event) => { setDestekisim(event.target.value) }} /> <br />
 
                   <label style={{ fontSize: '20px' }} id="content">Destek İçerik</label> <br /><br />
-                  <input type="text" onChange={(event) => { setDestekurl(event.target.value) }} placeholder="Destek görsel url giriniz."></input><br />
+                  <input type="text"  class="form-control" value={destekurl} onChange={(event) => { setDestekurl(event.target.value) }} placeholder="Destek görsel url giriniz."></input><br />
 
                   <label style={{ fontSize: '20px' }}>Destekleyen Kurum Hakkında</label> <br />
                   <div className='row'>
@@ -230,7 +230,7 @@ const AdminDestek = () => {
         <br /><br /><br />
 
 
-      </Sidebar>
+      
     </div>
 
 

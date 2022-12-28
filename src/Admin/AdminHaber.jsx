@@ -10,6 +10,14 @@ import { CKEditor, CKEditorContext } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import parse from 'html-react-parser';  //Ck editör ekrana özelliklerini bastırma. npm i html-react-parser
 import { useNavigate } from 'react-router-dom' //localStorage
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage"
+
 
 const AdminHaber = () => {
 
@@ -18,8 +26,12 @@ const AdminHaber = () => {
   const [haberbaslık, setHaberbaslık] = useState("");
   const [haberurl, setHaberurl] = useState("");
   const [habericerik, setHabericerik] = useState("");
+  const [haberFoto, setHaberFoto] = useState("");
   const [postLists, setPostList] = useState([]);
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // -------------------------localStorage - Session START---------------------------------
 
@@ -27,7 +39,7 @@ const AdminHaber = () => {
 
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
@@ -51,7 +63,8 @@ const AdminHaber = () => {
       {
         haberbaslık: haberbaslık,
         habericerik: habericerik,
-        haberurl: haberurl
+        haberurl: haberurl,
+        haberFoto:haberFoto
       }
     );
     await updateDoc(docRef, {
@@ -79,9 +92,46 @@ const AdminHaber = () => {
   {/*----------------------------Slayt Silme Fonksiyonu END------------------------------------------*/ }
 
 
+
+   {/*----------------------------Fotoğraf Dosyası UPLOAD START------------------------------------------*/ }
+   const [haberFoto_progress, setHaberFoto_Progress] = useState(0);
+   const formHandler_haberFoto = (e) => {
+     console.log(e.target.files[0])
+ 
+     const file = e.target.files[0];
+     uploadFiles_haberFoto(file);
+   };
+ 
+   const uploadFiles_haberFoto = (file) => {
+     const d = new Date();
+     const saat = d.getHours();
+     const dk = d.getMinutes();
+     const sn = d.getMilliseconds();
+     //
+     if (!file) return;
+     const sotrageRef = ref(storage, `/haberFotograf/${haberbaslık}/${saat + ":" + dk + ":" + sn}${file.name}`);
+     const uploadTask = uploadBytesResumable(sotrageRef, file);
+ 
+     uploadTask.on(
+       "state_changed",
+       (snapshot) => {
+         const prog = Math.round(
+           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+         );
+         setHaberFoto_Progress(prog);
+       },
+       (error) => console.log(error),
+       () => {
+         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+           setHaberFoto(downloadURL)
+         });
+       }
+     );
+   };
+   {/*----------------------------Fotoğraf Dosyası UPLOAD END------------------------------------------*/ }
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
-      <Sidebar>
+
         <br /><br />
 
         <div style={{ margin: '50px' }}>
@@ -114,13 +164,13 @@ const AdminHaber = () => {
                   <h3>Haberler</h3><br /><br />
 
                   <label style={{ fontSize: '20px' }}>Haber Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Haber başlığı giriniz." onChange={(event) => { setHaberbaslık(event.target.value) }} /> <br />
+                  <input type="text" class="form-control" id="exampleInputEmail1" value={haberbaslık} placeholder="Haber başlığı giriniz." onChange={(event) => { setHaberbaslık(event.target.value) }} /> <br />
 
-                  <label style={{ fontSize: '20px' }}>Haber Görsel URL</label><br /><br />
-                  <input id="img" type="file" class="form-control" placeholder="" ></input><br />
+                  <label style={{ fontSize: '20px' }}>Haber Görsel</label><br /><br />
+                  <input id="img" type="file"  class="form-control" placeholder=""  onChange={(e) => formHandler_haberFoto(e)} ></input><br />
 
-                  <label style={{ fontSize: '20px' }} id="content">Haber İçerik</label> <br /><br />
-                  <input type="text" onChange={(event) => { setHaberurl(event.target.value) }} placeholder="Haber görsel url giriniz."></input><br />
+                  <label style={{ fontSize: '20px' }} id="content">Haber Görsel URL</label> <br /><br />
+                  <input type="text"  class="form-control" value={haberurl} onChange={(event) => { setHaberurl(event.target.value) }} placeholder="Haber görsel url giriniz."></input><br />
 
                   <label style={{ fontSize: '20px' }}>Haber İçerik</label> <br />
                   <div className='row'>
@@ -193,10 +243,28 @@ const AdminHaber = () => {
 
                             <tr key={doc.id}>
 
-                              <td> {doc.haberurl && <img src={doc.haberurl} alt='some' className='img-fluid' style={{ height: '90px', width: 'auto' }}></img>}</td>
+                              <td> {doc.haberurl && <img src={doc.haberurl} alt='some' className='img-fluid' style={{ height: '90px', width: 'auto' }}></img>}  
+                              {doc.haberFoto && <img src={doc.haberFoto} alt='some' className='img-fluid' style={{ height: '90px', width: 'auto' }}></img>}</td>
                               <td>{doc.haberbaslık}</td>
                               <td className='satırboyutu'>{parse(doc.habericerik)}</td>
-                              <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /> <FaEdit style={{ color: 'rgb(40,167,147)', fontSize: '25px' }} /></td>
+                              <td><Button variant="primary" onClick={handleShow}>
+                              <RiDeleteBin5Line />
+      </Button>
+
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Silmek İstediğinize Emin misiniz?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => { deletePost(doc.id) }}>
+            Sil
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Kapat
+          </Button>
+        </Modal.Footer>
+      </Modal> <RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /> <FaEdit style={{ color: 'rgb(40,167,147)', fontSize: '25px' }} /></td>
                             </tr>
 
                           ))}
@@ -232,7 +300,7 @@ const AdminHaber = () => {
 
 
         </div>
-      </Sidebar>
+      
 
     </div>
 

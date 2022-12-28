@@ -22,7 +22,7 @@ const AdminGenelgePdf = () => {
 
   useEffect(() => {
     if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/Admin')
+      navigate('/giris')
     }
   }, [navigate])
 
@@ -60,7 +60,7 @@ const AdminGenelgePdf = () => {
   }
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
-      <Sidebar>
+      
         <br /><br />
 
         <div style={{ margin: '50px' }}>
@@ -94,13 +94,13 @@ const AdminGenelgePdf = () => {
                   <h3>Genelgeler</h3><br /><br />
 
                   <label style={{ fontSize: '20px' }}>Genelge PDF Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Genelge PDF Başlığı giriniz." onChange={(event) => { setGenelgebaslık(event.target.value) }} /> <br />
+                  <input type="text" class="form-control" id="exampleInputEmail1" value={genelgebaslık} placeholder="Genelge PDF Başlığı giriniz." onChange={(event) => { setGenelgebaslık(event.target.value) }} /> <br />
 
                   <label style={{ fontSize: '20px' }}>Genelge PDF Link</label> <br />
                   <input id="img" type="file" class="form-control" placeholder=""></input><br />
 
                   <label style={{ fontSize: '20px' }} id="content">Genelge PDF Link</label> <br />
-                  <input type="text" onChange={(event) => { setGenelgeicerik(event.target.value) }} placeholder="Genelge pdf Link Giriniz."></input><br />
+                  <input type="text" value={genelgeicerik} onChange={(event) => { setGenelgeicerik(event.target.value) }}  placeholder="Genelge pdf Link Giriniz."></input><br />
 
 
                   <br />
@@ -184,7 +184,7 @@ const AdminGenelgePdf = () => {
             </div>
           </div>
         </div>
-      </Sidebar>
+     
 
 
       {/* <div class="container-fluid ">

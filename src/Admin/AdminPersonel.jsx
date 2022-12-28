@@ -22,7 +22,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/Admin')
+    navigate('/giris')
   }
 }, [navigate])
 
@@ -78,7 +78,7 @@ useEffect(() => {
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
 
-      <Sidebar>
+      
         <br /><br />
         <div style={{ margin: '50px' }}>
 
@@ -110,16 +110,16 @@ useEffect(() => {
                 <div style={{ margin: '30px' }}>
                   <h3>Personeller</h3><br />
                   <label style={{ fontSize: '20px' }}>Personel Ad-Soyad</label><br /><br />
-                  <input type="text" class="form-control" id="text" placeholder="Personel ad soyad giriniz." onChange={(event) => { setPersoneladsoyad(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={personeladsoyad} id="text" placeholder="Personel ad soyad giriniz." onChange={(event) => { setPersoneladsoyad(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>Personel Görevi</label><br /><br />
-                  <input type="text" class="form-control" id="text" placeholder="Personel görevini giriniz." onChange={(event) => { setPersonelgorev(event.target.value) }}></input><br />
+                  <input type="text" class="form-control" value={personelgorev} id="text" placeholder="Personel görevini giriniz." onChange={(event) => { setPersonelgorev(event.target.value) }}></input><br />
 
                   <label style={{ fontSize: '20px' }}>Personel Fotoğrafı</label><br /><br />
                   <input id="img" type="file" class="form-control" placeholder=""></input><br />
 
                   <label style={{ fontSize: '20px' }} id="content">Personel Görsel</label> <br /><br />
-                <input type="text" onChange={(event) => { setPersonelfoto(event.target.value) }} placeholder="Personel görsel url giriniz."></input><br />
+                <input type="text" class="form-control" value={personelfoto} onChange={(event) => { setPersonelfoto(event.target.value) }} placeholder="Personel görsel url giriniz."></input><br />
 
                   <div className='d-flex justify-content-end'>
                     <button className='btngiris' onClick={personelkaydet}>Ekle</button>
@@ -186,7 +186,7 @@ useEffect(() => {
 
 
 
-      </Sidebar>
+     
 
 
 

@@ -4,19 +4,25 @@ import Ckeditor from './Ckeditor'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { FiEdit } from 'react-icons/fi'
 import Sidebar from './Sidebar'
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc, Timestamp } from "firebase/firestore";
 import { db, storage } from '../firebase'
 import { CKEditor, CKEditorContext } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import parse from 'html-react-parser';  //Ck editör ekrana özelliklerini bastırma. npm i html-react-parser
 import { useNavigate } from 'react-router-dom' //localStorage
 
+
 const AdminDuyuru = () => {
 
   const [duyurubaslık, setDuyurubaslık] = useState("");
   const [duyuruicerik, setDuyuruicerik] = useState("");
   const [postLists, setPostList] = useState([]);
+  const [time, setTime] = useState("");
+  
+ 
 
+    
+  
 
 // -------------------------localStorage - Session START---------------------------------
 
@@ -24,7 +30,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/Admin')
+    navigate('/giris')
   }
 }, [navigate])
 
@@ -48,6 +54,7 @@ useEffect(() => {
       {
         duyurubaslık: duyurubaslık,
         duyuruicerik: duyuruicerik,
+        time:Timestamp.fromDate(new Date()),
 
       }
     );
@@ -59,6 +66,8 @@ useEffect(() => {
     setDuyuruicerik("");
 
   }
+
+  
 
   {/*-------------------------------Slayt Kayıt Fonksiyonu END---------------------------------------*/ }
 
@@ -78,7 +87,7 @@ useEffect(() => {
 
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' }}>
-      <Sidebar>
+     
         <br /><br />
         <div style={{ margin: '50px' }}>
           <div className='page-header-card'>
@@ -102,7 +111,7 @@ useEffect(() => {
 
             <br /><br />
 
-
+          
 
             <div className='row'>
               <div className='col-lg-12'>
@@ -110,12 +119,13 @@ useEffect(() => {
                   <h3>Duyurular</h3><br /><br />
 
                   <label style={{ fontSize: '20px' }}>Duyuru Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Duyuru başlığı giriniz." onChange={(event) => { setDuyurubaslık(event.target.value) }} /> <br />
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Duyuru başlığı giriniz." value={duyurubaslık} onChange={(event) => { setDuyurubaslık(event.target.value) }} /> <br />
 
                   <label style={{ fontSize: '20px' }}>Duuyuru İçerik</label> <br />
                   <div className='row'>
                     <div className='col-lg-12 col-md-12 col-sm-12 col'>
                       <CKEditor
+                    
                         editor={ClassicEditor}
                         data=""
                         onReady={editor => {
@@ -219,7 +229,7 @@ useEffect(() => {
 
 
 
-      </Sidebar>
+      
 
 
 
@@ -243,39 +253,31 @@ useEffect(() => {
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/anasayfa" class="nav-link px-0 align-middle">
                            <FaHome style={{color:'white'}}/>  <span class="ms-1 d-none d-sm-inline">Anasayfa</span></NavLink>
                     </li>
-
                     <br/>
-
                     <li>
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/slaytekle" class="nav-link px-0 align-middle">
                           <FaRegImages style={{color:'white'}}/>   <span class="ms-1 d-none d-sm-inline">Slaytlar</span></NavLink>
                     </li>
-
               <br/>
-
                     <li>
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/hakkımızdaekle" class="nav-link px-0 align-middle">
                            <FaRegIdCard style={{color:'white'}}/>  <span class="ms-1 d-none d-sm-inline">Hakkımızda</span></NavLink>
                     </li>
-
                     <br/>
                     <li>
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/genelgeekle" class="nav-link px-0 align-middle">
                          <FaRegNewspaper style={{color:'white'}}/>   <span class="ms-1 d-none d-sm-inline">Genelgeler</span></NavLink>
                     </li>
-
                     <br/>
                     <li>
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/haberekle" class="nav-link px-0 align-middle">
                         <FaRegNewspaper style={{color:'white'}}/>  <span class="ms-1 d-none d-sm-inline">Haberler</span></NavLink>
                     </li>
-
                     <br/>
                     <li>
                         <NavLink style={{textDecoration:'none',color:'white'}} to="/Admin/duyuruekle" class="nav-link px-0 align-middle">
                          <BsMegaphoneFill style={{color:'white'}}/>  <span class="ms-1 d-none d-sm-inline">Duyurular</span></NavLink>
                     </li>
-
                     <br/>
                     
                     <li>
@@ -310,7 +312,6 @@ useEffect(() => {
       <div className='row'>
           <div className='col-lg-8'>
               <h4> <FiHome style={{fontSize:'40px',backgroundColor:'rgb(64,153,255)',color:'white',padding:'5px'}}/> Isparta Esnaf Ve Sanatkarlar Odaları Birliği
-
          </h4>
          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Duyurular</span>
           </div>
@@ -325,24 +326,19 @@ useEffect(() => {
           
           </div>
           <br/><br/>
-
-
           <div className='container'>
           <div className='row'>
       <div className='col-lg-12'>
           <div className='card' style={{padding:'20px'}}>
               <h3>Duyurular</h3><br/><br/>
-
       <label style={{fontSize:'20px'}}>Duyuru Başlık</label> <br/>
       <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Duyuru başlığı giriniz."/> <br/>
-
       <label style={{fontSize:'20px'}}>Duuyuru İçerik</label> <br/>
       <Ckeditor/>
       <br/>
                   <div className='d-flex justify-content-end'>
                   <button className='btngiris' role={'button'}>Ekle</button> 
                   </div>
-
           </div>
       </div>
      </div>
@@ -360,7 +356,6 @@ useEffect(() => {
       
   Show <select name="dom-jqry_length" aria-controls="dom-jqry" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
       </div> 
-
       <div className='col-lg-6 d-flex justify-content-end'>
          <p style={{margin:'5px'}}>Search:</p>
          <input type="search" class="" placeholder="" aria-controls="dom-jqry"></input>
@@ -382,43 +377,36 @@ useEffect(() => {
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
     <td><RiDeleteBin5Line style={{color:'red',fontSize:'25px'}}/><FiEdit style={{color:'rgb(40,167,69)',fontSize:'25px'}}/></td>
   </tr>
-
   <tr>
     <th scope="row">İMALAT SANAYİNDE REKABET EDİLEBİLİRLİK VE YENİLİK DESTEK PROGRAMI</th>
     <td>T.C Sanayi ve Teknoloji Bakanlığı koordinasyonunda</td>
@@ -427,11 +415,8 @@ useEffect(() => {
   
   
 </tbody>
-
-
 </table>
 </div>
-
          <div className='row'>
       <div className='col-lg-6'>
         <p>Showing 1 to 1 of 1 entries</p>
@@ -441,14 +426,12 @@ useEffect(() => {
           <p style={{margin:'5px'}}>Previous</p> 
           <button style={{margin:'5px'}}>1</button>
            <p style={{margin:'5px'}}>Next</p>
-
        </div>
        </div>
       </div>
       
       <br/>
   </div>
-
   </div>
   
       </div>
@@ -457,7 +440,6 @@ useEffect(() => {
           <br/><br/><br/>
          
       
-
      
     </div>
     </div> */}
