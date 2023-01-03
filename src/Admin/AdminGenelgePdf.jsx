@@ -16,18 +16,6 @@ const AdminGenelgePdf = () => {
 
   const [postLists, setPostList] = useState([]);
 
-  // -------------------------localStorage - Session START---------------------------------
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/giris')
-    }
-  }, [navigate])
-
-  // -------------------------localStorage - Session END---------------------------------
-
 
   useEffect(
     () =>

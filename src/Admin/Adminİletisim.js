@@ -3,16 +3,11 @@ import { FiHome } from 'react-icons/fi'
 import { FaEdit } from 'react-icons/fa'
 import { BsEyeFill } from 'react-icons/bs'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import Sidebar from './Sidebar'
 import { db } from '../firebase'
 import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom' //localStorage
+
 
 const Adminİletisim = () => {
-
-
-
-
 
 
   const [adres, setAdres] = useState("");
@@ -24,18 +19,6 @@ const Adminİletisim = () => {
   const [postLists, setPostList] = useState([]);
 
 
-// -------------------------localStorage - Session START---------------------------------
-
-const navigate = useNavigate();
-
-useEffect(() => {
-  if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/giris')
-  }
-}, [navigate])
-
-// -------------------------localStorage - Session END---------------------------------
-
 
 
   useEffect(
@@ -45,11 +28,6 @@ useEffect(() => {
       ),
     []
   );
-
-
-
-
-
 
 
   async function iletisimkaydet() {

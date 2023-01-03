@@ -19,21 +19,7 @@ const AdminHakkımızda = () => {
     const [icerik, setIcerik] = useState("");
 
     const [postLists, setPostList] = useState([]);
-
-// -------------------------localStorage - Session START---------------------------------
-
-const navigate = useNavigate();
-
-useEffect(() => {
-  if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/giris')
-  }
-}, [navigate])
-
-// -------------------------localStorage - Session END---------------------------------
     
-
-
     useEffect(
         () =>
             onSnapshot(collection(db, `hakkimizda`), (snapshot) =>

@@ -87,7 +87,12 @@ const Slider1 = () => {
                   <div>
                     <Card className='cardd' style={{ minHeight: '455px' }}>
 
-                      <Card.Img variant="top" style={{ minHeight: '210px' }} src={doc.haberurl} />
+         
+                      {doc.haberurl && <img src={doc.haberurl} alt='some' className='img-fluid'  style={{ minHeight: '210px' }}></img>}  
+                      {doc.haberFoto && <img src={doc.haberFoto} alt='some' className='img-fluid'  style={{ minHeight: '210px' }}></img>}
+
+                      
+                      
                       <Card.Body >
 
                         <Card.Title className='a'>{doc.haberbaslık}</Card.Title>

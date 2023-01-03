@@ -1,35 +1,16 @@
-import React, { useState,useEffect } from 'react'
+import React from 'react'
 import { FiHome } from 'react-icons/fi'
 import { CiUser } from 'react-icons/ci'
 import { FaRegNewspaper } from 'react-icons/fa'
 import { FaBullhorn } from 'react-icons/fa'
-import Sidebar from './Sidebar'
-import HeaderBar from './HeaderBar'
-import { useNavigate } from 'react-router-dom' //localStorage
-import { NavLink } from 'react-router-dom'
-import { db, storage } from '../firebase';
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+
 
 
 
 
 const AdminAnasayfa = () => {
 
-  // -------------------------localStorage - Session START---------------------------------
 
-  const navigate = useNavigate();
-
-
-  useEffect(() => {
-    if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/giris')
-    }
-  }, [navigate])
-
-
-
-
-  // -------------------------localStorage - Session END---------------------------------
 
   return (
     <div style={{ backgroundColor: 'rgb(242,247,251)' , height:'100%'}} >

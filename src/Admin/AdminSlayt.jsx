@@ -1,37 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { FiHome } from 'react-icons/fi'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import Sidebar from './Sidebar'
 import { db, storage } from '../firebase'
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import { useNavigate } from 'react-router-dom' //localStorage
-// import {useCollectionData} from 'react-firebase-hooks/firestore';
+import { collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage"
 
-
-
-
-
-{/*----------------------------------------------------------------------*/ }
-
-// SQL veri tabanları
-// NoSQL veritabanları
-// SQL vs NoSQL Varitabanları - yani ikisi arasındaki farklar, avantajlar, dezavantajlar
-// Neden NoSQL veritabanı kullanıyoruz ? 
-// NoSQL veri yapıları ?
-// JSON veri yapısı ? JSON kullanımı ? JSON örnekleri?
-
-{/*----------------------------------------------------------------------*/ }
-
-// API nedir ?
-// API kullanım alanları ?
-// ReactJS API kullanımı ? Axios - Fetch kütüphanelerinin çalışma mantığı
-
-{/*----------------------------------------------------------------------*/ }
-
-// NoSQL örnek veritabanleri çizimi ? Ağaç şeklinde dallanarak gidecek şekilde örnek çizimler.
-
-{/*----------------------------------------------------------------------*/ }
 
 
 const AdminSlayt = () => {
@@ -40,23 +17,9 @@ const AdminSlayt = () => {
   const [slayturl, setSlayturl] = useState("");
   const [slayticerik, setSlayticerik] = useState("");
   const [postLists, setPostList] = useState([]);
+  const [slaytFoto, setSlaytFoto] = useState("");
   const [imgUrl, setImgUrl] = useState(null);
   const [progresspercent, setProgresspercent] = useState(0);
-
-
-// -------------------------localStorage - Session START---------------------------------
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/giris')
-    }
-  }, [navigate])
-
-// -------------------------localStorage - Session END---------------------------------
-
-
 
 
   useEffect(
@@ -77,11 +40,12 @@ const AdminSlayt = () => {
       {
         slaytbaslık: slaytbaslık,
         slayticerik: slayticerik,
-        slayturl: slayturl
+        slayturl: slayturl,
+        slaytFoto: slaytFoto
       }
     );
-  
-    
+
+
     await updateDoc(docRef, {
       id: docRef.id,
     });
@@ -93,7 +57,42 @@ const AdminSlayt = () => {
   {/*-------------------------------Slayt Kayıt Fonksiyonu END---------------------------------------*/ }
 
 
+  {/*----------------------------Fotoğraf Dosyası UPLOAD START------------------------------------------*/ }
+  const [slaytFoto_progress, setSlaytFoto_Progress] = useState(0);
+  const formHandler_slaytFoto = (e) => {
+    console.log(e.target.files[0])
 
+    const file = e.target.files[0];
+    uploadFiles_slaytFoto(file);
+  };
+
+  const uploadFiles_slaytFoto = (file) => {
+    const d = new Date();
+    const saat = d.getHours();
+    const dk = d.getMinutes();
+    const sn = d.getMilliseconds();
+    //
+    if (!file) return;
+    const sotrageRef = ref(storage, `/slaytFotograf/${slaytbaslık}/${saat + ":" + dk + ":" + sn}${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setSlaytFoto_Progress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setSlaytFoto(downloadURL)
+        });
+      }
+    );
+  };
+  {/*----------------------------Fotoğraf Dosyası UPLOAD END------------------------------------------*/ }
 
 
 
@@ -107,7 +106,7 @@ const AdminSlayt = () => {
 
   {/*----------------------------Slayt Silme Fonksiyonu START------------------------------------------*/ }
 
-  
+
 
 
   // const handleSubmit = (e) => {
@@ -214,49 +213,49 @@ const AdminSlayt = () => {
 
   return (
 
-    
-
-    <div style={{ backgroundColor: 'rgb(242,247,251)', height:'100%' }}>
-
-      
-        <br /><br />
-
-        <div style={{ margin: '50px' }}>
-
-          <div className='page-header-card'>
-
-            <div className='row'>
-              <div className='col-lg-8'>
-                <h4> <FiHome style={{ fontSize: '40px', backgroundColor: 'rgb(64,153,255)', color: 'white', padding: '5px' }} /> Isparta Esnaf Ve Sanatkarlar Odaları Birliği
-
-                </h4>
-                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Slaytlar</span>
-              </div>
-
-              <div className='col-lg-4 d-flex justify-content-end'>
-                <FiHome style={{ color: '#182446', marginTop: '4px' }} />&nbsp;
-                <p>/</p> &nbsp;
-                <p> Slaytlar</p>
-              </div>
-            </div>
 
 
-          </div>
-          <br /><br />
+    <div style={{ backgroundColor: 'rgb(242,247,251)', height: '100%' }}>
 
+
+      <br /><br />
+
+      <div style={{ margin: '50px' }}>
+
+        <div className='page-header-card'>
 
           <div className='row'>
-            <div className='col-lg-12'>
+            <div className='col-lg-8'>
+              <h4> <FiHome style={{ fontSize: '40px', backgroundColor: 'rgb(64,153,255)', color: 'white', padding: '5px' }} /> Isparta Esnaf Ve Sanatkarlar Odaları Birliği
 
-              <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
-                <h3>Slaytlar</h3> <br /> <br />
-                <label style={{ fontSize: '20px' }}>Slayt Başlık</label> <br /><br />
-                <input type="text" class="form-control" value={slaytbaslık} onChange={(event) => { setSlaytbaslık(event.target.value) }} placeholder="Slayt başlığı giriniz." /> <br />
+              </h4>
+              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Slaytlar</span>
+            </div>
 
-                 <label style={{ fontSize: '20px' }}>Slayt URL</label> <br /><br />
-                <input id="img" type="file" class="form-control" onChange={(event) => { setImgUrl(event.target.value) }} ></input><br /> 
+            <div className='col-lg-4 d-flex justify-content-end'>
+              <FiHome style={{ color: '#182446', marginTop: '4px' }} />&nbsp;
+              <p>/</p> &nbsp;
+              <p> Slaytlar</p>
+            </div>
+          </div>
 
-                {/* <form onSubmit={handleSubmit} className='form'>
+
+        </div>
+        <br /><br />
+
+
+        <div className='row'>
+          <div className='col-lg-12'>
+
+            <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
+              <h3>Slaytlar</h3> <br /> <br />
+              <label style={{ fontSize: '20px' }}>Slayt Başlık</label> <br /><br />
+              <input type="text" class="form-control" value={slaytbaslık} onChange={(event) => { setSlaytbaslık(event.target.value) }} placeholder="Slayt başlığı giriniz." /> <br />
+
+              <label style={{ fontSize: '20px' }}>Slayt URL</label> <br /><br />
+              <input id="img" type="file" class="form-control" onChange={(e) => formHandler_slaytFoto(e)} ></input><br />
+
+              {/* <form onSubmit={handleSubmit} className='form'>
                   <input type='file' class="form-control" />
                   {
                     !imgUrl &&
@@ -273,17 +272,17 @@ const AdminSlayt = () => {
 
 
 
-                <label style={{ fontSize: '20px' }} id="content">Slayt İçerik</label> <br /><br />
-                <input type="text"  class="form-control" value={slayticerik} onChange={(event) => { setSlayticerik(event.target.value) }} placeholder="Slayt görsel url giriniz."></input><br />
+              <label style={{ fontSize: '20px' }} id="content">Slayt İçerik</label> <br /><br />
+              <input type="text" class="form-control" value={slayticerik} onChange={(event) => { setSlayticerik(event.target.value) }} placeholder="Slayt görsel url giriniz."></input><br />
 
-                <p>Kalan Karekter sayısı : 250</p>
-                <div className='d-flex justify-content-end'>
+              <p>Kalan Karekter sayısı : 250</p>
+              <div className='d-flex justify-content-end'>
 
-                  <button className='btngiris' onClick={slaytkaydet} >Ekle</button>
-                  <br />
-                  <div>
-                    <br /><br /><br /><br />
-                    {/* {postLists.map((post) => {
+                <button className='btngiris' onClick={slaytkaydet} >Ekle</button>
+                <br />
+                <div>
+                  <br /><br /><br /><br />
+                  {/* {postLists.map((post) => {
         return(
          <div>
 
@@ -297,98 +296,99 @@ const AdminSlayt = () => {
      
         
       )})} */}
-                  </div>
+                </div>
 
-                  {/* {esnafbirligi?.map((esnafbirligi) =>(
+                {/* {esnafbirligi?.map((esnafbirligi) =>(
           <li key={esnafbirligi.id}>
             {esnafbirligi.slaytbaslık}
             {esnafbirligi.slayticerik}
           </li>
         ))} */}
 
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
- 
-
-          <div className='row'>
-            <div className='col-lg-12'>
-              <br /> <br /><br /> <br />
-
-
-              <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
-                <h5>Slaytlar</h5> <br />
-                <div className='row'>
-                  <div className='col-lg-6'>
-
-                    Show <select name="dom-jqry_length" aria-controls="dom-jqry" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
-                  </div>
-
-                  <div className='col-lg-6 d-flex justify-content-end'>
-                    <p style={{ margin: '5px' }}>Search:</p>
-
-                    <input type="search" class="" placeholder="" aria-controls="dom-jqry"></input>
-                  </div>
-                </div>
-                <div className='table-responsive'>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Slayt Görsel</th>
-                        <th scope="col">Slayt Başlık</th>
-                        <th scope="col">Slayt İçerik</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-
-
-                      {postLists &&
-                        postLists.length > 0 &&
-                        postLists.map((doc) => (
-
-                          <tr key={doc.id}>
-                            <th scope="row"></th>
-                            <td> {doc.slayticerik && <img src={doc.slayticerik} alt='some' className='img-fluid' style={{ height: '80px', width: 'auto' }}></img>}</td>
-                            <td>{doc.slaytbaslık}</td>
-                            <td> {doc.slayticerik}</td>
-                            <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /></td>
-                            
-                          </tr>
-
-                        ))}
-
-
-                    </tbody>
-                  </table>
-                </div>
-                <div className='row'>
-                  <div className='col-lg-6'>
-                    <p>Showing 1 to 1 of 1 entries</p>
-                  </div>
-
-                  <div className='col-lg-6 d-flex justify-content-end'>
-                    <p style={{ margin: '5px' }}>Previous</p>
-                    <button style={{ margin: '5px' }}>1</button>
-                    <p style={{ margin: '5px' }}>Next</p>
-
-                  </div>
-                </div>
               </div>
 
-              <br />
             </div>
-
           </div>
 
         </div>
 
-     
+
+
+        <div className='row'>
+          <div className='col-lg-12'>
+            <br /> <br /><br /> <br />
+
+
+            <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
+              <h5>Slaytlar</h5> <br />
+              <div className='row'>
+                <div className='col-lg-6'>
+
+                  Show <select name="dom-jqry_length" aria-controls="dom-jqry" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
+                </div>
+
+                <div className='col-lg-6 d-flex justify-content-end'>
+                  <p style={{ margin: '5px' }}>Search:</p>
+
+                  <input type="search" class="" placeholder="" aria-controls="dom-jqry"></input>
+                </div>
+              </div>
+              <div className='table-responsive'>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Slayt Görsel</th>
+                      <th scope="col">Slayt Başlık</th>
+                      <th scope="col">Slayt İçerik</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+
+                    {postLists &&
+                      postLists.length > 0 &&
+                      postLists.map((doc) => (
+
+                        <tr key={doc.id}>
+                          <th scope="row"></th>
+                          <td> {doc.slayticerik && <img src={doc.slayticerik} alt='some' className='img-fluid' style={{ height: '90px', width: 'auto' }}></img>}
+                            {doc.slaytFoto && <img src={doc.slaytFoto} alt='some' className='img-fluid' style={{ height: '90px', width: 'auto' }}></img>}</td>
+                          <td>{doc.slaytbaslık}</td>
+                          <td> {doc.slayticerik}</td>
+                          <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /></td>
+
+                        </tr>
+
+                      ))}
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div className='row'>
+                <div className='col-lg-6'>
+                  <p>Showing 1 to 1 of 1 entries</p>
+                </div>
+
+                <div className='col-lg-6 d-flex justify-content-end'>
+                  <p style={{ margin: '5px' }}>Previous</p>
+                  <button style={{ margin: '5px' }}>1</button>
+                  <p style={{ margin: '5px' }}>Next</p>
+
+                </div>
+              </div>
+            </div>
+
+            <br />
+          </div>
+
+        </div>
+
+      </div>
+
+
     </div>
 
 

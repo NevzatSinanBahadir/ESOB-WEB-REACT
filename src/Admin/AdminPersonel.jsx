@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FiHome } from 'react-icons/fi'
 import { FaEdit } from 'react-icons/fa'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import Sidebar from './Sidebar'
-import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { collection, addDoc, doc, deleteDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { db, storage } from '../firebase'
-import { useNavigate } from 'react-router-dom' //localStorage
+
 
 
 const AdminPersonel = () => {
@@ -15,31 +14,7 @@ const AdminPersonel = () => {
   const [personelfoto, setPersonelfoto] = useState("");
   const [postLists, setPostList] = useState([]);
 
-
-// -------------------------localStorage - Session START---------------------------------
-
-const navigate = useNavigate();
-
-useEffect(() => {
-  if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/giris')
-  }
-}, [navigate])
-
-// -------------------------localStorage - Session END---------------------------------
-
-  useEffect(
-    () =>
-      onSnapshot(collection(db, `personeller`), (snapshot) =>
-        setPostList(snapshot.docs.map((doc) => doc.data()))
-      ),
-    []
-  );
-
-
-  {/*----------------------------Slayt Kayıt Fonksiyonu START------------------------------------------*/ }
-
-  async function personelkaydet() {
+   async function personelkaydet() {
 
     const docRef = await addDoc(
       collection(db, `personeller`),
@@ -61,6 +36,13 @@ useEffect(() => {
   {/*-------------------------------Slayt Kayıt Fonksiyonu END---------------------------------------*/ }
 
 
+  useEffect(
+    () =>
+      onSnapshot(collection(db, `personeller`), (snapshot) =>
+        setPostList(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
 
 
 

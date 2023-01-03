@@ -17,28 +17,41 @@ const DuyuruDetay = () => {
   const [duyurular, setDuyurular] = useState([]);
   const [icerik, setIcerik] = useState("");
   const [baslik, setBaslik] = useState("");
+  const [time,setTime] = useState("");
+
  
   
   const { id } = useParams();
 
 
-  const time = Timestamp.fromDate(new Date());
+
 
   async function vericek() {
     const veriyolu = doc(db, "duyurular", id);
     const docSnap = await getDoc(veriyolu);
-   
+ 
     setDuyurular(docSnap.data());
     setIcerik(docSnap.data()['duyuruicerik'])
     setBaslik(docSnap.data()['duyurubaslık'])
-   
-    
+    setTime(docSnap.data()['time'])
   }
 
   useEffect(
     () => {
       vericek()
     },
+    []
+  );
+  
+
+
+
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, `duyurular`), (snapshot) =>
+        setDuyurular(snapshot.docs.map((doc) => doc.data()))
+      ),
     []
   );
 
@@ -84,11 +97,13 @@ const DuyuruDetay = () => {
 
               </div>
 
+      
+
               <div className='col-lg-9 d-flex justify-content-end '>
-                <p>{time.toDate().toLocaleDateString("tr")}</p>
+             <p></p>
               </div>
 
-            
+   
 
               <div className='col-lg-12 d-flex justify-content-center '>
                 <br /><br />

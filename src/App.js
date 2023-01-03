@@ -34,11 +34,6 @@ import Sidebar from './Admin/Sidebar';
 import { useLocation } from 'react-router-dom';
 
 
-
-
-
-
-
 function App() {
 
     
@@ -49,11 +44,11 @@ function App() {
  
   
     const location = useLocation();
-    if (location.pathname.startsWith('/admin')) {
+    if (location.pathname.startsWith('/admin') && localStorage.getItem("isAuthenticated")) {
 
-    
-    
+  
     return(
+
       <Sidebar>
       <Routes>
              <Route path='/admin/anasayfa' element={<AdminAnasayfa/>}/>
@@ -67,6 +62,7 @@ function App() {
              <Route path='/admin/duyuruekle' element={<AdminDuyuru/>}/>
              <Route path='/admin/destekekle' element={<AdminDestek/>}/>
              <Route path='/admin/genelgepdfekle' element={<AdminGenelgePdf/>}/>
+             <Route path="*" element={<AdminAnasayfa />} />
             
              
      
@@ -95,6 +91,7 @@ function App() {
           <Route path='/DuyuruDetay/:id' element={<DuyuruDetay />}/>
           <Route path='/DestekDetay/:id' element={<DestekDetay />}/>
           <Route path='/giris' element={<GirisYap/>}/> 
+          <Route path="*" element={<GirisYap/>} />
            
          
     </Routes>
@@ -108,10 +105,6 @@ function App() {
 
    <App/>
     
-
-
-
-
 
 
  {/* {adminPath === true ? 

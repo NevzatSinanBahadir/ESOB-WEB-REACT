@@ -64,8 +64,11 @@ const Haberler = () => {
                   <div className='row'>
                      <div className='col-lg-3 p-2'>
 
-                        <NavLink to={`/HaberDetay/${doc.id}`}> <img src={doc.haberurl} alt='' className='img-fluid' style={{ height: '240px', borderRadius: '20px' }}></img></NavLink>
+                      <NavLink to={`/HaberDetay/${doc.id}`}> <img src={doc.haberurl} alt='' className='img-fluid' style={{ height: '240px', borderRadius: '20px' }}></img>
+                       <img src={doc.haberFoto} alt='' className='img-fluid' style={{ height: '240px', borderRadius: '20px' }}></img></NavLink>
                      </div>
+
+
                      
 
                      <div className='col-lg-9 p-2'>

@@ -14,8 +14,6 @@ const Duyurular = () => {
   const [duyurular, setDuyurular] = useState([]);
 
 
-
-
   useEffect(
     () =>
       onSnapshot(collection(db, `duyurular`), (snapshot) =>

@@ -54,7 +54,6 @@ const Destekler = () => {
       </div>
       <br /><br />
 
-
       <div className='container'>
         <br />
         <h4 className='baslık'>Destekler</h4>
@@ -68,7 +67,9 @@ const Destekler = () => {
 
                 <div class="card destekler" style={{ borderRadius: '40px' }}>
                   <NavLink to={`/DestekDetay/${doc.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <img src= {doc.destekurl} class="desteklerfoto" alt="" />
+                    {doc.destekurl && <img src={doc.destekurl} alt='' class="desteklerfoto" ></img>}
+                    {doc.destekFoto && <img src={doc.destekFoto} alt='' class="desteklerfoto" ></img>}
+
                     <div class="card-body">
                       <h5 class="card-title" style={{ fontWeight: 'bold' }}>{doc.destekisim}</h5>
                       <br />

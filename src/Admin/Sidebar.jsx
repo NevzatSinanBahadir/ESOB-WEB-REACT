@@ -30,43 +30,39 @@ const Sidebar = ({ children }) => {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-      if (!!!sessionStorage.getItem("isAuthenticated")) {
-        navigate('/giris')
-      }
-    }, [navigate])
+  
 
 
     const toggle = () => {
 
-      setIsOpen (!isOpen);
+   setIsOpen (!isOpen);
         
 
     
-        if(!localStorage.getItem("toggle")) {
+    //     if(!localStorage.getItem("toggle")) {
            
-            localStorage.setItem("toggle", "true");
-        } 
+    //         localStorage.setItem("toggle", "true");
+    //     } 
 
      
         
-        else {
-            if(localStorage.getItem("toggle") === "true") {
+    //     else {
+    //         if(localStorage.getItem("toggle") === "true") {
            
-            localStorage.setItem("toggle", "false");
-          }
+    //         localStorage.setItem("toggle", "false");
+    //       }
 
           
-            else if(localStorage.getItem("toggle") === "false") {
+    //         else if(localStorage.getItem("toggle") === "false") {
             
-            localStorage.setItem("toggle", "true")
+    //         localStorage.setItem("toggle", "true")
             
-          }
-        }
+    //       }
+    //     }
 
        
 
-    }
+     }
 
 
 

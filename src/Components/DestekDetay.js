@@ -17,7 +17,8 @@ const DestekDetay = () => {
 
   const [icerik, setIcerik] = useState("");
   const [baslik, setBaslik] = useState("");
-  const [url,setUrl]= useState("");
+  const [url, setUrl] = useState("");
+  const [foto, setFoto] = useState("");
   const [destekler, setDestekler] = useState([]);
   const { id } = useParams();
 
@@ -31,6 +32,7 @@ const DestekDetay = () => {
     setIcerik(docSnap.data()['destekicerik'])
     setBaslik(docSnap.data()['destekisim'])
     setUrl(docSnap.data()['destekurl'])
+    setFoto(docSnap.data()['destekFoto'])
   }
 
   useEffect(
@@ -67,24 +69,26 @@ const DestekDetay = () => {
 
       <div className='container'>
         <div className='haberrr'>
-        
-        <div className='row'>
-          <div className='col-lg-12 p-3'>
-            <h4 className='baslık'>{baslik}</h4>
+
+          <div className='row'>
+            <div className='col-lg-12 p-3'>
+              <h4 className='baslık'>{baslik}</h4>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-lg-3 p-4'>
+              {url && <img src={url} alt='' className='img-fluid haberdetayfoto' ></img>}
+              {foto && <img src={foto} alt='' className='img-fluid haberdetayfoto' ></img>}
+
+
+            </div>
+
+            <div className='col-lg-9 p-3'>
+              <br />
+              <p className='yazı'>{parse(icerik)}</p>
+            </div>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-lg-3 p-4'>
-            <img src={url} alt=''  className='img-fluid haberdetayfoto' ></img>
-
-          </div>
-
-          <div className='col-lg-9 p-3'>
-            <br />
-            <p className='yazı'>{parse(icerik)}</p>
-          </div>
-        </div>
-      </div>
       </div>
 
 

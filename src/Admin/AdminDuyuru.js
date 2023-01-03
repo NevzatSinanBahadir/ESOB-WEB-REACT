@@ -18,23 +18,10 @@ const AdminDuyuru = () => {
   const [duyuruicerik, setDuyuruicerik] = useState("");
   const [postLists, setPostList] = useState([]);
   const [time, setTime] = useState("");
-  
- 
 
-    
-  
 
-// -------------------------localStorage - Session START---------------------------------
 
-const navigate = useNavigate();
 
-useEffect(() => {
-  if (!!!sessionStorage.getItem("isAuthenticated")) {
-    navigate('/giris')
-  }
-}, [navigate])
-
-// -------------------------localStorage - Session END---------------------------------
 
   useEffect(
     () =>
@@ -54,7 +41,7 @@ useEffect(() => {
       {
         duyurubaslık: duyurubaslık,
         duyuruicerik: duyuruicerik,
-        time:Timestamp.fromDate(new Date()),
+        time: Timestamp.fromDate(new Date()),
 
       }
     );
@@ -67,7 +54,7 @@ useEffect(() => {
 
   }
 
-  
+
 
   {/*-------------------------------Slayt Kayıt Fonksiyonu END---------------------------------------*/ }
 
@@ -86,150 +73,150 @@ useEffect(() => {
   {/*----------------------------Slayt Silme Fonksiyonu END------------------------------------------*/ }
 
   return (
-    <div style={{ backgroundColor: 'rgb(242,247,251)', height:'100%' }}>
-     
-        <br /><br />
-        <div style={{ margin: '50px' }}>
-          <div className='page-header-card'>
+    <div style={{ backgroundColor: 'rgb(242,247,251)', height: '100%' }}>
 
-            <div className='row'>
-              <div className='col-lg-8'>
-                <h4> <FiHome style={{ fontSize: '40px', backgroundColor: 'rgb(64,153,255)', color: 'white', padding: '5px' }} /> Isparta Esnaf Ve Sanatkarlar Odaları Birliği
+      <br /><br />
+      <div style={{ margin: '50px' }}>
+        <div className='page-header-card'>
 
-                </h4>
-                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Duyurular</span>
-              </div>
+          <div className='row'>
+            <div className='col-lg-8'>
+              <h4> <FiHome style={{ fontSize: '40px', backgroundColor: 'rgb(64,153,255)', color: 'white', padding: '5px' }} /> Isparta Esnaf Ve Sanatkarlar Odaları Birliği
 
-              <div className='col-lg-4 d-flex justify-content-end'>
-                <FiHome style={{ color: '#182446', marginTop: '4px' }} />&nbsp;
-                <p>/</p> &nbsp;
-                <p> Duyurular</p>
-
-              </div>
+              </h4>
+              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Duyurular</span>
             </div>
 
+            <div className='col-lg-4 d-flex justify-content-end'>
+              <FiHome style={{ color: '#182446', marginTop: '4px' }} />&nbsp;
+              <p>/</p> &nbsp;
+              <p> Duyurular</p>
 
-            <br /><br />
-
-          
-
-            <div className='row'>
-              <div className='col-lg-12'>
-                <div className='card' style={{ padding: '20px' }}>
-                  <h3>Duyurular</h3><br /><br />
-
-                  <label style={{ fontSize: '20px' }}>Duyuru Başlık</label> <br />
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Duyuru başlığı giriniz." value={duyurubaslık} onChange={(event) => { setDuyurubaslık(event.target.value) }} /> <br />
-
-                  <label style={{ fontSize: '20px' }}>Duuyuru İçerik</label> <br />
-                  <div className='row'>
-                    <div className='col-lg-12 col-md-12 col-sm-12 col'>
-                      <CKEditor
-                    
-                        editor={ClassicEditor}
-                        data=""
-                        onReady={editor => {
-                          console.log('Editor is ready to use!', editor);
-                        }}
-                        onChange={(event, editor) => {
-                          const data = editor.getData();
-
-                          setDuyuruicerik(data)
-
-                        }}
-                        onBlur={(event, editor) => {
-                          console.log('Blur.', editor);
-                        }}
-                        onFocus={(event, editor) => {
-                          console.log('Focus.', editor);
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <br />
-                  <div className='d-flex justify-content-end'>
-                    <button className='btngiris' onClick={duyurukaydet}>Ekle</button>
-                  </div>
-
-                </div>
-              </div>
             </div>
           </div>
 
+
           <br /><br />
+
+
 
           <div className='row'>
             <div className='col-lg-12'>
+              <div className='card' style={{ padding: '20px' }}>
+                <h3>Duyurular</h3><br /><br />
 
-              <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
-                <h5>Duyurular</h5> <br />
+                <label style={{ fontSize: '20px' }}>Duyuru Başlık</label> <br />
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Duyuru başlığı giriniz." value={duyurubaslık} onChange={(event) => { setDuyurubaslık(event.target.value) }} /> <br />
+
+                <label style={{ fontSize: '20px' }}>Duuyuru İçerik</label> <br />
                 <div className='row'>
-                  <div className='col-lg-6'>
+                  <div className='col-lg-12 col-md-12 col-sm-12 col'>
+                    <CKEditor
 
-                    Show <select name="dom-jqry_length" aria-controls="dom-jqry" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
-                  </div>
+                      editor={ClassicEditor}
+                      data=""
+                      onReady={editor => {
+                        console.log('Editor is ready to use!', editor);
+                      }}
+                      onChange={(event, editor) => {
+                        const data = editor.getData();
 
-                  <div className='col-lg-6 d-flex justify-content-end'>
-                    <p style={{ margin: '5px' }}>Search:</p>
-                    <input type="search" class="" placeholder="" aria-controls="dom-jqry"></input>
+                        setDuyuruicerik(data)
+
+                      }}
+                      onBlur={(event, editor) => {
+                        console.log('Blur.', editor);
+                      }}
+                      onFocus={(event, editor) => {
+                        console.log('Focus.', editor);
+                      }}
+                    />
                   </div>
                 </div>
-                <div className='table-responsive'>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Duyuru Başlık</th>
-                        <th scope="col">Duyuru İçerik</th>
-                        <th scope="col"></th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {postLists &&
-                        postLists.length > 0 &&
-                        postLists.map((doc) => (
-
-                          <tr key={doc.id}>
-
-                            <td>{doc.duyurubaslık}</td>
-                            <td className='satırboyutu'> {parse(doc.duyuruicerik)}</td>
-                            <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /> <FiEdit style={{ color: 'rgb(40,167,147)', fontSize: '25px' }} /></td>
-                          </tr>
-
-                        ))}
-
-
-
-                    </tbody>
-
-
-                  </table>
+                <br />
+                <div className='d-flex justify-content-end'>
+                  <button className='btngiris' onClick={duyurukaydet}>Ekle</button>
                 </div>
 
-                <div className='row'>
-                  <div className='col-lg-6'>
-                    <p>Showing 1 to 1 of 1 entries</p>
-                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                  <div className='col-lg-6 d-flex justify-content-end'>
-                    <p style={{ margin: '5px' }}>Previous</p>
-                    <button style={{ margin: '5px' }}>1</button>
-                    <p style={{ margin: '5px' }}>Next</p>
+        <br /><br />
 
-                  </div>
+        <div className='row'>
+          <div className='col-lg-12'>
+
+            <div className='card' style={{ backgroundColor: 'white', padding: '20px' }}>
+              <h5>Duyurular</h5> <br />
+              <div className='row'>
+                <div className='col-lg-6'>
+
+                  Show <select name="dom-jqry_length" aria-controls="dom-jqry" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
+                </div>
+
+                <div className='col-lg-6 d-flex justify-content-end'>
+                  <p style={{ margin: '5px' }}>Search:</p>
+                  <input type="search" class="" placeholder="" aria-controls="dom-jqry"></input>
                 </div>
               </div>
+              <div className='table-responsive'>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Duyuru Başlık</th>
+                      <th scope="col">Duyuru İçerik</th>
+                      <th scope="col"></th>
 
-              <br />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {postLists &&
+                      postLists.length > 0 &&
+                      postLists.map((doc) => (
+
+                        <tr key={doc.id}>
+
+                          <td>{doc.duyurubaslık}</td>
+                          <td className='satırboyutu'> {parse(doc.duyuruicerik)}</td>
+                          <td><RiDeleteBin5Line className='çöpkutusu' onClick={() => { deletePost(doc.id) }} style={{ color: 'red', fontSize: '25px' }} /> <FiEdit style={{ color: 'rgb(40,167,147)', fontSize: '25px' }} /></td>
+                        </tr>
+
+                      ))}
+
+
+
+                  </tbody>
+
+
+                </table>
+              </div>
+
+              <div className='row'>
+                <div className='col-lg-6'>
+                  <p>Showing 1 to 1 of 1 entries</p>
+                </div>
+
+                <div className='col-lg-6 d-flex justify-content-end'>
+                  <p style={{ margin: '5px' }}>Previous</p>
+                  <button style={{ margin: '5px' }}>1</button>
+                  <p style={{ margin: '5px' }}>Next</p>
+
+                </div>
+              </div>
             </div>
 
+            <br />
           </div>
 
         </div>
 
+      </div>
 
 
-      
+
+
 
 
 

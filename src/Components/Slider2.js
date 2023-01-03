@@ -47,6 +47,7 @@ const Slider2 = () => {
           slaytlar.map((doc) => (
             <div >
               {doc.slayticerik && <img src={doc.slayticerik} alt='some' className='d-block w-100'></img>}
+              {doc.slaytFoto && <img src={doc.slaytFoto} alt='some' className='d-block w-100'></img>}
            
               <h4 className='slaytbaslık'>{doc.slaytbaslık}</h4>
             

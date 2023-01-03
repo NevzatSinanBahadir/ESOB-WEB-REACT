@@ -6,6 +6,12 @@ import Sidebar from './Sidebar'
 import { db, storage } from '../firebase'
 import { collection, addDoc, getDocs, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom' //localStorage
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage"
+
 
 
 const AdminOda = () => {
@@ -14,20 +20,9 @@ const AdminOda = () => {
   const [odabaskanı, setOdabaskanı] = useState("");
   const [odagenelsekreter, setOdagenelsekreter] = useState("");
   const [odatel, setOdatel] = useState("");
+  const [odaFoto, setOdaFoto] = useState("");
   const [odatip, setOdatip] = useState("");
   const [postLists, setPostList] = useState([]);
-
-  // -------------------------localStorage - Session START---------------------------------
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!!!sessionStorage.getItem("isAuthenticated")) {
-      navigate('/giris')
-    }
-  }, [navigate])
-
-  // -------------------------localStorage - Session END---------------------------------
 
 
   useEffect(
@@ -39,6 +34,42 @@ const AdminOda = () => {
   );
 
 
+  {/*----------------------------Fotoğraf Dosyası UPLOAD START------------------------------------------*/ }
+  const [odaFoto_progress, setOdaFoto_Progress] = useState(0);
+  const formHandler_odaFoto = (e) => {
+    console.log(e.target.files[0])
+
+    const file = e.target.files[0];
+    uploadFiles_odaFoto(file);
+  };
+
+  const uploadFiles_odaFoto = (file) => {
+    const d = new Date();
+    const saat = d.getHours();
+    const dk = d.getMinutes();
+    const sn = d.getMilliseconds();
+    //
+    if (!file) return;
+    const sotrageRef = ref(storage, `/haberFotograf/${odaismi}/${saat + ":" + dk + ":" + sn}${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setOdaFoto_Progress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setOdaFoto(downloadURL)
+        });
+      }
+    );
+  };
+  {/*----------------------------Fotoğraf Dosyası UPLOAD END------------------------------------------*/ }
 
 
   async function odakaydet() {
