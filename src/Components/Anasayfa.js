@@ -39,7 +39,7 @@ useEffect(() => {
         <AracCubugu/>
         
      
-      <div className='row'>
+      <div className='row gx-0'>
       <div className='col-lg-9 col-md-9 col-12 '>
       
      <Slider2/>
